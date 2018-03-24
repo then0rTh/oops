@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Careful...</title>
+        <style media="screen">
+            #cup {
+                width: 20%;
+                margin: auto;
+                margin-top: 8em;
+                margin-bottom: 10em;
+            }
+            #bs {
+                position: absolute;
+                top: 5em;
+                right: 60%;
+                display: none;
+            }
+            h1 {
+                text-align: center;
+            }
+            #cup > img {
+                width: 100%;
+                height: auto;
+            }
+
+            .fallen > img {
+                transform: rotate(-90deg);
+            }
+            .fallen + #bs {
+                display: block;
+            }
+
+            button {
+                position: absolute;
+                background-color: lightgreen;
+                font-size: 2em;
+                color: black;
+                padding: 0.5em;
+            }
+
+            .fallen ~ button {
+                display: none;
+            }
+        </style>
+        <script type="text/javascript">
+            function tru() { return Math.random() >= 0.5; }
+            function oops(el) {
+                el.classList.add('fallen');
+                document.title = "Oops!";
+                document.getElementById('h1').innerHTML = "C'mon!";
+            }
+            function changeLR(btn) {
+                console.log('changeLR', btn);
+                if (btn.style.left !== '') {
+                    btn.style.left = '';
+                    btn.style.right = 0;
+                } else {
+                    btn.style.right = '';
+                    btn.style.left = 0;
+                }
+            }
+            function changeTB(btn) {
+                console.log('changeTB', btn);
+                if (btn.style.top !== '') {
+                    btn.style.top = '';
+                    btn.style.bottom = 0;
+                } else {
+                    btn.style.bottom = '';
+                    btn.style.top = 0;
+                }
+            }
+            function clickd(btn) {
+                for (let changed = false; !changed; ) {
+                    if (tru()) {
+                        changeLR(btn);
+                        changed = true;
+                    }
+                    if (tru()) {
+                        changeTB(btn);
+                        changed = true;
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h1 id="h1"> Click the button, carefully! </h1>
+        <div id="cup" onmouseover="oops(this)">
+            <img src="cup.jpg" alt="An ordinary cup">
+        </div>
+        <div id="bs">
+            <img src="bs.jpg">
+        </div>
+        <button type="button" onclick="clickd(this)" style="right: 0px; top: 0px;"> 
+            Click me! Carefully!
+        </button>
+    </body>
+</html>
